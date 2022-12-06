@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Instant designing</title>
 </head>
 <body>
-  <p> Header </p>  
+  <p> Hi there fellas! </p>  
 </body>
 </html>
