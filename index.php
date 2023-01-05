@@ -76,15 +76,71 @@ a:hover{
 </head>
 <body>
   <p> What is the dimensions of your site? </p>
+  <form method="post">
+        <input type="email" name="emailid" id="emailid" required />
+        <br>
+        <br>
+        <p font-size="100px">Enter your mail address to access the software </p>
+        <br>
+        <input type="submit" name="upload" value="Submit" id="submitbutton" style="height:50px; width: 100px;background-color:Orange;font-size:20px; border:none" onclick="show()"/>
+        <br>
+    </form>
+    <br>
+    <div id="dim">
   <form>
-    <input type="number" id="length" name="length">Length</input>
-    <input type="number" id="breadth" name="breadth">Length</input>
-    <input type="submit" id="dimensions">
+    <input type="number" id="length" name="length">Length</input><br>
+    <input type="number" id="breadth" name="breadth">Length</input><br>
+    <input type="submit" value="OK" id="dimensions">
   </form>
+</div>
+  <script>
+    const div = document.getElementById("dim");
+    document.getElementById("submitbutton").onclick = function show() {
+      if (div.style.display === "none"){
+      div.style.display = "block";
+    } else {
+      div.style.display = "none";
+    }
+    };
+    </script>
   <?php
   ini_set('display_errors',1);
   ini_set('display_startup_errors',1);
   error_reporting(E_ALL);
+  if (isset($_POST["upload"])){
+    $email_address = $_POST["emailid"];
+if(!empty($email_address))
+{
+    echo $email_address;
+    echo "<br>";
+    echo "We have recieved your mail id";
+    echo "<br>";
+    $host="localhost";
+    $username="gayathri_qwikdraft";
+    $password=",rO=nhK[8";
+    $database="email_addresses";
+    $conn=mysqli_connect($host,$username,$password);
+      mysqli_select_db($conn,$database);
+      if (mysqli_connect_error()){
+          echo "we are not connected to the database";
+          die('Connect Error('.mysqli_connect_errorno().')'.mysqli_connect_error());  
+      }
+  else {
+      
+      //cho "we are connected to database";
+          $SELECT = "SELECT Email FROM user_email";
+          $INSERT = "INSERT into user_email (Email) values (?)";
+          $stmt=$conn->prepare($INSERT);
+          $stmt->bind_param("s",$email_address);
+          $stmt->execute();
+          $stmt->store_result();
+          $rnum = $stmt->num_rows;
+          $stmt->close();
+          $conn->close();       
+}
+}
+  }
+
   ?>
 </body>
 </html>
